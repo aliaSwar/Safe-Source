@@ -41,4 +41,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     *  The reation many to many  with files
+     *
+     */
+    public function files()
+    {
+        return $this->belongsToMany(File::class, 'histories')
+            ->withPivot(['date', 'status']);
+    }
+
+    /**
+     *  The reation many to many  with groups
+     *
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class);
+    }
 }
