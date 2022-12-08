@@ -18,7 +18,7 @@ class FilePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->is_admin;
     }
 
     /**

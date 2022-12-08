@@ -13,7 +13,7 @@ class StoreFileRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class StoreFileRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'         =>         ['required', 'string', 'max:555'],
+            'path'         =>         ['required', 'file', 'mimes:pdf,xml'],
         ];
     }
 }

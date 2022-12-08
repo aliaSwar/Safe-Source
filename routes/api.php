@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\FileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,5 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 //TODO::logout user
 Route::post('/logout', [AuthController::class, 'logout']);
-
-
-Route::get('hello', function () {
-
-    return auth()->user();
-})->middleware('auth:sanctum');
+////////////////////////Section File//////////////////////////
+Route::resource('files', FileController::class);
