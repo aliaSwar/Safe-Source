@@ -20,7 +20,8 @@ class AuthController extends Controller
         ]);
 
         if ($validetor->fails()) {
-            $this->formatValidationErrors($validetor);
+            return  $validetor->errors()->all();
+            //$this->formatValidationErrors($validetor);
         }
 
         $user = User::create([
@@ -48,7 +49,8 @@ class AuthController extends Controller
         ]);
 
         if ($validetor->fails()) {
-            $this->formatValidationErrors($validetor);
+            return  $validetor->errors()->all();
+            // $this->formatValidationErrors($validetor);
         }
 
         if (Auth::attempt($request->all())) {
