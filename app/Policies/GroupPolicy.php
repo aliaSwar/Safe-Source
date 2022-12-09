@@ -6,6 +6,8 @@ use App\Models\Group;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
+use function PHPUnit\Framework\isEmpty;
+
 class GroupPolicy
 {
     use HandlesAuthorization;
@@ -18,7 +20,7 @@ class GroupPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->is_admin;
     }
 
     /**
@@ -65,7 +67,12 @@ class GroupPolicy
      */
     public function delete(User $user, Group $group)
     {
-        //
+        return $user->id == $group->user_id and $group->files->each(function ($file) {
+            if ($file->is_reserve) {
+                return false;
+            }
+            return true;
+        });
     }
 
     /**

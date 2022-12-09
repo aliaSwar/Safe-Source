@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
+use App\Http\Resources\GroupResource;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+use function PHPUnit\Framework\isEmpty;
 
 class GroupController extends Controller
 {
@@ -16,18 +21,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        return Group::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +33,17 @@ class GroupController extends Controller
      */
     public function store(StoreGroupRequest $request)
     {
-        //
+        DB::transaction(function () use ($request) {
+
+            $group = new Group();
+            $group->user_id        =     auth()->id();
+            $group->name           =     $request->name;
+            $group->slug           =     Str::slug($request->name, '-');
+            $group->save();
+
+            $group->users()->attach(auth()->id());
+        });
+        return ['message'   =>     'the user ' . auth()->user()->name . ' added a new  group successfuly'];
     }
 
     /**
@@ -48,19 +54,9 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //
+        return new GroupResource($group);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Group $group)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -82,6 +78,10 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        // return "sdsd";
+        $this->authorize('delete', $group);
+        $group->delete();
+
+        return ['message'      =>     'the user ' . auth()->user()->name . ' has deleted successfuly group'];
     }
 }

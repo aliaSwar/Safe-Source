@@ -65,7 +65,7 @@ class FilePolicy
      */
     public function delete(User $user, File $file)
     {
-        //
+        return $user->id == $file->id and is_null($file->is_reserve);
     }
 
     /**

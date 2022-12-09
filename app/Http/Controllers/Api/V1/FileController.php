@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
+use App\Http\Resources\FileResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -65,7 +66,8 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-        return $file;
+
+        return new FileResource($file);
     }
 
 
@@ -90,6 +92,9 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        $this->authorize('delete', $file);
+        $file->delete();
+
+        return ['message'    =>     'the file is deleted successfuly'];
     }
 }
