@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\GroupController;
+use App\Http\Controllers\Api\V1\OperationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,3 +33,12 @@ Route::resource('files', FileController::class);
 
 /////////////////////////Section Group////////////////////////
 Route::resource('groups', GroupController::class);
+
+
+////////////////////Section Operation///////////////////////
+Route::controller(OperationController::class)->group(/* ['prefix' => 'operations'], */function () {
+    //TODO::add users to groups
+    Route::post('addusers/{group}', 'addUsersToGroup');
+    //TODO::add file to group
+    Route::post('addfile/{file}', 'addFileToGroup');
+});

@@ -67,35 +67,11 @@ class GroupPolicy
      */
     public function delete(User $user, Group $group)
     {
-        return $user->id == $group->user_id and $group->files->each(function ($file) {
+        return $user->id == $group->user_id  and $group->files->each(function ($file) {
             if ($file->is_reserve) {
                 return false;
             }
             return true;
         });
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Group $group)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Group  $group
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Group $group)
-    {
-        //
     }
 }

@@ -7,10 +7,12 @@ use App\Models\Group;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-use function PHPUnit\Framework\isEmpty;
 
 class GroupController extends Controller
 {
@@ -83,5 +85,15 @@ class GroupController extends Controller
         $group->delete();
 
         return ['message'      =>     'the user ' . auth()->user()->name . ' has deleted successfuly group'];
+    }
+    /**
+     * show  the specified groups to user.
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function showUserGroups(User $user)
+    {
+        return $user->groups;
     }
 }
