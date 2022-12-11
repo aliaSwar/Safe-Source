@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RemoveUsersFromGroupRequest extends FormRequest
@@ -31,8 +32,17 @@ class RemoveUsersFromGroupRequest extends FormRequest
     /**
      *
      */
-    public function check( $var = null)
+    public function check(Group $group)
     {
-        # code...
+
+        foreach ($this->users as $userID) {
+            $users[] = $group->files()->each(function ($file) use ($userID) {
+
+                if (!is_null($file->reverse_id) and $file->reverse_id == $userID) {
+                    return $userID;
+                }
+            });
+        }
+        return $users;
     }
 }

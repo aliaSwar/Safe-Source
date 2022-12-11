@@ -22,7 +22,7 @@ class FileController extends Controller
     public function index()
     {
         $this->authorize('viewAny', File::class);
-        return File::with('group', 'users')->paginate('5');
+        return File::with('group', 'user')->paginate('5');
     }
 
 

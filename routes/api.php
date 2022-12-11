@@ -33,6 +33,11 @@ Route::resource('files', FileController::class);
 
 /////////////////////////Section Group////////////////////////
 Route::resource('groups', GroupController::class);
+//TODO::عرض المحموعات التي يملكها اليوزر
+Route::get('groups/user/{user}', [GroupController::class, 'showUserGroups']);
+
+
+
 
 
 ////////////////////Section Operation///////////////////////

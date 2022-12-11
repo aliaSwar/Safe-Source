@@ -58,4 +58,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Group::class);
     }
+    /**
+     * get key route name
+     */
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

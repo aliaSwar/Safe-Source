@@ -23,6 +23,7 @@ class GroupController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Group::class);
         return Group::all();
     }
 
@@ -86,13 +87,19 @@ class GroupController extends Controller
         return ['message'      =>     'the user ' . auth()->user()->name . ' has deleted successfuly group'];
     }
     /**
-     * show  the specified groups to user.
+     * عرض المحموعات التي يملكها اليوزر
      *
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
     public function showUserGroups(User $user)
     {
-        return $user->groups;
+        $groups = [];
+        foreach ($user->groups as $group) {
+            if ($group->user_id == $user->id) {
+                $groups[] = $group;
+            }
+        }
+        return $groups;
     }
 }
