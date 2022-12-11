@@ -17,20 +17,27 @@ class File extends Model
     ];
 
     /**
-     *The Relation Many to Many User table
+     *The Relation user can reserve one ore more file and the file can be reserved just to one user .
      */
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class, 'histories')->withPivot('date', 'status');
+        return $this->belongsTo(User::class);
     }
 
     /**
-     * The Relation Many File To Oe group
+     * The Relation Many File To One group
      *
      */
     public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+    /**
+     *The Relation histories table store all updates file .
+     */
+    public function histories()
+    {
+        return $this->hasMany(History::class);
     }
     /**
      * get key route name

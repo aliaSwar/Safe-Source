@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Http\Resources\FileResource;
+use App\Models\History;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -46,13 +47,13 @@ class FileController extends Controller
                 'name'           =>     $request->name,
                 'slug'           =>     Str::slug($request->name, '-'),
                 'path'           =>     $path,
-                'is_reserve'     =>     false
             ]);
+            //store in history file
+            History::create([
+                'user_id' => auth()->id(),
+                'file_id' => $file->id,
+                'status'  => 'create',
 
-
-            $file->users()->attach(auth()->id(), [
-                'status' => 'create',
-                'date'   =>  Carbon::now()
             ]);
         });
         return ['message'   =>     'the user added file successfuly'];

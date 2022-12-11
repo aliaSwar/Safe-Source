@@ -17,9 +17,9 @@ return new class extends Migration
             $table->comment('Table Many To Many Between User And File ');
             $table->id();
             $table->foreignId('file_id');
-            $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->enum('status', ['reserve', 'create', 'cancle', 'edit']);
-            $table->date('date');
+            $table->timestamps();
         });
     }
 

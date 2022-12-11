@@ -80,7 +80,6 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        // return "sdsd";
         $this->authorize('delete', $group);
         $group->delete();
 
