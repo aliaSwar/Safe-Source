@@ -15,7 +15,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function __construct()
     {
-        //$this->middleware(LogRoute::class);
+        $this->middleware('logRoute');
         $this->middleware('auth:sanctum')->except('login', 'register');
     }
 

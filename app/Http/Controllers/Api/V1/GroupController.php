@@ -8,7 +8,9 @@ use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
 use App\Http\Resources\GroupResource;
 use App\Models\User;
+
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 
 
@@ -99,5 +101,26 @@ class GroupController extends Controller
             }
         }
         return $groups;
+    }
+    /**
+     * انشاء مجموعة عامة
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function createPublicGroup()
+    {
+        $this->authorize('createPublic', Group::class);
+        $group = new Group();
+        $group->user_id        =     auth()->id();
+        $group->name           =     'public';
+        $group->slug           =     'public';
+        $group->is_public      =      true;
+
+        $group->save();
+
+        $group->users()->attach(auth()->id());
+
+        return ['message'   =>     'the admin ' . auth()->user()->name . ' added a new  group successfuly'];
     }
 }

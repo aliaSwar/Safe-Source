@@ -17,7 +17,7 @@ class LogRoute
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
+       /*  $response = $next($request); */
         $log = [
             'URI'                =>       $request->getUri(),
             'METHOD'             =>       $request->getMethod(),

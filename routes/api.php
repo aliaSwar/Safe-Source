@@ -18,25 +18,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+
+////////////////////////Section User///////////////////////////////////////
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//TODO::register user
 Route::post('/register', [AuthController::class, 'register']);
-//TODO::login user
 Route::post('/login', [AuthController::class, 'login']);
-//TODO::logout user
 Route::post('/logout', [AuthController::class, 'logout']);
+
+
+
+
+
 ////////////////////////Section File//////////////////////////
 Route::resource('files', FileController::class);
 //TODO::عرض الفايلات التي يملكها اليوزر
 Route::get('files/user/{user}', [FileController::class, 'showUserFiles']);
+//TODO::create a public group
 
 /////////////////////////Section Group////////////////////////
 Route::resource('groups', GroupController::class);
 //TODO::عرض المحموعات التي يملكها اليوزر
 Route::get('groups/user/{user}', [GroupController::class, 'showUserGroups']);
-
+//TODO::create a public group
+Route::get('public', [GroupController::class, 'createPublicGroup']);
 
 
 

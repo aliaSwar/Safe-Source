@@ -74,4 +74,14 @@ class GroupPolicy
             return true;
         });
     }
+    /**
+     * Determine whether the user can create the public model.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function createPublic(User $user)
+    {
+        return $user->is_admin;
+    }
 }
