@@ -40,6 +40,9 @@ class RemoveFileFromGroupRequest extends FormRequest
         if (auth()->id() != $file->user_id) {
             return false;
         }
+        if (!is_null($file->reverse_id)) {
+            return false;
+        }
         return true;
     }
 }

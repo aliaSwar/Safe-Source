@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Middleware\LogRoute;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -14,6 +15,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
     public function __construct()
     {
+        //$this->middleware(LogRoute::class);
         $this->middleware('auth:sanctum')->except('login', 'register');
     }
 

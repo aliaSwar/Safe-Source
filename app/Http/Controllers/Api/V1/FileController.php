@@ -8,6 +8,7 @@ use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Http\Resources\FileResource;
 use App\Models\History;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -97,5 +98,16 @@ class FileController extends Controller
         $file->delete();
 
         return ['message'    =>     'the file is deleted successfuly'];
+    }
+    /**
+     * عرض الفايلات التي يملكها اليوزر
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function showUserGroups(User $user)
+    {
+        $files = File::where('user_id', $user->id)->get();
+        return $files;
     }
 }
