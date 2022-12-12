@@ -105,7 +105,7 @@ class FileController extends Controller
      * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function showUserGroups(User $user)
+    public function showUserFiles(User $user)
     {
         $files = File::where('user_id', $user->id)->get();
         return $files;

@@ -29,7 +29,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
 ////////////////////////Section File//////////////////////////
 Route::resource('files', FileController::class);
-
+//TODO::عرض الفايلات التي يملكها اليوزر
+Route::get('files/user/{user}', [FileController::class, 'showUserFiles']);
 
 /////////////////////////Section Group////////////////////////
 Route::resource('groups', GroupController::class);
