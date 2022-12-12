@@ -43,7 +43,11 @@ Route::get('groups/user/{user}', [GroupController::class, 'showUserGroups']);
 ////////////////////Section Operation///////////////////////
 Route::controller(OperationController::class)->group(/* ['prefix' => 'operations'], */function () {
     //TODO::add users to groups
-    Route::post('addusers/{group}', 'addUsersToGroup');
+    Route::post('addusers/{group}',   'addUsersToGroup');
+    //TODO::remove users from group
+    Route::post('removeuser/{group}', 'removeUsersFromGroup');
     //TODO::add file to group
     Route::post('addfile/{file}', 'addFileToGroup');
+    //TODO::remove file from group
+    Route::post('groups/removefile', 'removeFileFromGroup');
 });

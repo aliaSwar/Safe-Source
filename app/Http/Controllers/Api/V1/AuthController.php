@@ -20,6 +20,7 @@ class AuthController extends Controller
         ]);
 
         if ($validetor->fails()) {
+            abort(403);
             return  $validetor->errors()->all();
             //$this->formatValidationErrors($validetor);
         }
@@ -49,6 +50,7 @@ class AuthController extends Controller
         ]);
 
         if ($validetor->fails()) {
+            abort(403);
             return  $validetor->errors()->all();
             // $this->formatValidationErrors($validetor);
         }

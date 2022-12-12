@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Group;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
 class RemoveUsersFromGroupRequest extends FormRequest
 {
@@ -25,24 +26,17 @@ class RemoveUsersFromGroupRequest extends FormRequest
     public function rules()
     {
         return [
-            'users'        =>           'required|array',
-            'users.*'      =>           'exists:users,id',
+
+            'user_id'      =>           'exists:users,id',
         ];
     }
-    /**
-     *
-     */
-    public function check(Group $group)
+    public function check($group)
     {
-
-        foreach ($this->users as $userID) {
-            $users[] = $group->files()->each(function ($file) use ($userID) {
-
-                if (!is_null($file->reverse_id) and $file->reverse_id == $userID) {
-                    return $userID;
-                }
-            });
-        }
-        return $users;
+        return auth()->id() == $group->user_id and $group->files()->each(function ($file) {
+            if ($file->is_reserve and $file->reverse_id == $this->user_id) {
+                return false;
+            }
+            
+        });
     }
 }
