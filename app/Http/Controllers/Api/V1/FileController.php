@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateFileRequest;
 use App\Http\Resources\FileResource;
+use App\Http\Resources\HistoryResource;
 use App\Models\History;
 use App\Models\User;
 use Carbon\Carbon;
@@ -129,5 +130,21 @@ class FileController extends Controller
     {
         $files = File::where('user_id', $user->id)->get();
         return $files;
+    }
+    /**
+     * عرض الفايلات التي يملكها اليوزر
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function showHistoryFile(File $file)
+    {
+        $history = DB::table('histories')
+            ->where('file_id', $file->id)
+            ->join('users', 'users.id', '=', 'histories.user_id')
+            ->select('histories.id', 'histories.status', 'histories.created_at', 'users.name')
+            ->orderByDesc('created_at')->get();
+
+        return $history;
     }
 }

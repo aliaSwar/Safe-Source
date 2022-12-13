@@ -42,7 +42,8 @@ Route::controller(AuthController::class)->group(function () {
 Route::resource('files', FileController::class);
 //TODO::عرض الفايلات التي يملكها اليوزر
 Route::get('files/user/{user}', [FileController::class, 'showUserFiles']);
-//TODO::create a public group
+//TODO::get history file
+Route::get('files/history/{file}', [FileController::class, 'showHistoryFile']);
 
 /////////////////////////Section Group////////////////////////
 Route::resource('groups', GroupController::class);
@@ -67,7 +68,7 @@ Route::controller(OperationController::class)->group(/* ['prefix' => 'operations
 });
 ////////////////////////////Reservation Section///////////////
 Route::controller(ReserverationController::class)->group(function () {
-    Route::get('reserve/{file}',   'checkIn');
-    Route::get('unreserve/{file}',   'checkOut');
-    Route::post('bulkreserve', 'BulkcheckIn');
+    Route::get('reserve/{file}',    'checkIn');
+    Route::get('unreserve/{file}',  'checkOut');
+    Route::post('bulkreserve',      'BulkcheckIn');
 });
