@@ -30,7 +30,10 @@ class FilePolicy
      */
     public function view(User $user, File $file)
     {
-        //
+        if (!$file->is_reserve) {
+            return true;
+        }
+        return $file->reverse_id == $user->id;
     }
 
     /**
@@ -53,7 +56,11 @@ class FilePolicy
      */
     public function update(User $user, File $file)
     {
-        //
+
+        if (!$file->is_reserve) {
+            return false;
+        }
+        return $file->reverse_id == $user->id;
     }
 
     /**
@@ -65,7 +72,7 @@ class FilePolicy
      */
     public function delete(User $user, File $file)
     {
-        return $user->id == $file->id and is_null($file->is_reserve);
+        return $user->id == $file->id and $file->is_reserve == false;
     }
 
     /**

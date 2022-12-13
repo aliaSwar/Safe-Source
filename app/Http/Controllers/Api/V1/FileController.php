@@ -68,7 +68,7 @@ class FileController extends Controller
      */
     public function show(File $file)
     {
-
+        $this->authorize('view', $file);
         return new FileResource($file);
     }
 
@@ -83,7 +83,27 @@ class FileController extends Controller
      */
     public function update(UpdateFileRequest $request, File $file)
     {
-        //
+        $this->authorize('update', $file);
+        //store path file
+        if ($request->has('path')) {
+            $fileRequest = $request->path;
+            $path = $fileRequest->store('files-store', 'public');
+        }
+
+        DB::transaction(function () use ($file, $path) {
+
+            $file->update([
+                'path'           =>     $path,
+            ]);
+            //store in history file
+            History::create([
+                'user_id' => $file->reverse_id,
+                'file_id' => $file->id,
+                'status'  => 'edit',
+
+            ]);
+        });
+        return ['message'   =>     'the user updated file successfuly'];
     }
 
     /**

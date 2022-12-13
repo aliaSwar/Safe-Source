@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\File;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 
-class UpdateFileRequest extends FormRequest
+class StoreReserveRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +26,18 @@ class UpdateFileRequest extends FormRequest
     public function rules()
     {
         return [
-            'path'         =>         ['required', 'file', 'mimes:pdf,xml'],
+            'filesId'       =>           'array|required',
+            'filesId.*'     =>           'exists:files,id',
         ];
+    }
+    /**
+     *
+     */
+    public function check()
+    {
+
+        return File::whereIn('id',  $this->filesId)
+            ->where('is_reserve', false)
+            ->get();
     }
 }

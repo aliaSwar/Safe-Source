@@ -18,7 +18,8 @@ class OperationController extends Controller
      */
     public function addUsersToGroup(AddUsersToGroupRequest $request, Group $group)
     {
-        //return $request->check($group);
+
+
         if (!$request->check($group)) {
             return [
                 "message"      =>         "the found error"

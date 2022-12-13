@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\GroupController;
 use App\Http\Controllers\Api\V1\OperationController;
+use App\Http\Controllers\Api\V1\ReserverationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,10 +27,13 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/register', 'register');
+    Route::post('/login', 'login');
+    Route::post('/logout', 'logout');
+    Route::get('users',  'index');
+});
 
 
 
@@ -60,4 +64,10 @@ Route::controller(OperationController::class)->group(/* ['prefix' => 'operations
     Route::post('addfile/{file}', 'addFileToGroup');
     //TODO::remove file from group
     Route::post('groups/removefile', 'removeFileFromGroup');
+});
+////////////////////////////Reservation Section///////////////
+Route::controller(ReserverationController::class)->group(function () {
+    Route::get('reserve/{file}',   'checkIn');
+    Route::get('unreserve/{file}',   'checkOut');
+    Route::post('bulkreserve', 'BulkcheckIn');
 });
