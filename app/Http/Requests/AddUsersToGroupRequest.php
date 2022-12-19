@@ -41,6 +41,7 @@ class AddUsersToGroupRequest extends FormRequest
 
         if (auth()->id() != $group->user_id)
             return false;
+            
         return true;
     }
 }

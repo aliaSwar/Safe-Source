@@ -82,6 +82,7 @@ class GroupPolicy
      */
     public function createPublic(User $user)
     {
+        
         return $user->is_admin;
     }
 }

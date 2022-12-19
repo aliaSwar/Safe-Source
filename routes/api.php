@@ -72,3 +72,6 @@ Route::controller(ReserverationController::class)->group(function () {
     Route::get('unreserve/{file}',  'checkOut');
     Route::post('bulkreserve',      'BulkcheckIn');
 });
+Route::get('/', function () {
+    return "fgfg";
+});

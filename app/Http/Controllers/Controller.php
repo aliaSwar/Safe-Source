@@ -16,7 +16,7 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->middleware('logRoute');
-        $this->middleware('auth:sanctum')->except('login', 'register');
+        //$this->middleware('auth:sanctum')->except('login', 'register');
     }
 
     /**
