@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGroupRequest;
 use App\Models\Group;
-use Illuminate\Http\Client\Request as ClientRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +17,7 @@ class GroupController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Group::class);
-        return view('groups.index', Group::with('users', 'files')->paginate(7));
+        return view('groups.index', ['groups' => Group::with('users', 'files')->paginate(7)]);
     }
 
     /**
@@ -51,7 +49,7 @@ class GroupController extends Controller
 
         $group->users()->attach(auth()->id());
 
-        return to_route('groups.show', $group);
+        return to_route('groups.show', ['group' => $group]);
     }
 
 
@@ -63,31 +61,9 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return view('groups.show',$group);
+        return view('groups.show', ['group' => $group]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ClientRequest $request, $id)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -95,8 +71,27 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Group $group)
     {
-        //
+        $this->authorize('delete', $group);
+        $group->delete();
+
+        return to_route('groups.index');
+    }
+    /**
+     * عرض المحموعات التي يملكها اليوزر
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function showUserGroups()
+    {
+        $groups = [];
+        foreach (auth()->user()->groups as $group) {
+            if ($group->user_id == auth()->id()) {
+                $groups[] = $group;
+            }
+        }
+        return view('groups.show-user', $groups);
     }
 }

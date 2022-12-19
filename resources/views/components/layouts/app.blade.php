@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ar" class="light-style  customizer-hide" dir="rtl" data-theme="theme-default"
+<html lang="en" class="light-style  customizer-hide" dir="ltr" data-theme="theme-default"
     data-assets-path="assets/" data-template="vertical-menu-template-no-customizer">
 
 <head>
@@ -14,7 +14,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.ltr.min.css"
         integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!-- Fonts -->
@@ -66,7 +66,8 @@
     <x-navbar />
 
     {{ $slot }}
-    <x-footer />
+
+
 
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>

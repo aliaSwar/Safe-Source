@@ -1,54 +1,61 @@
 <x-layouts.app>
 
+    <!-- Content wrapper -->
+    <div class="content-wrapper">
+        <!-- Content -->
 
-    @if (session()->has('data'))
-        <div class="alert alert-success">
-            <p>{{ session()->get('data') }}</p>
-        </div>
-    @endif
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <h5 class="pb-1 mb-4">أنواع المدرجين</h5>
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+
+            <!-- Basic Bootstrap Table -->
+
+
+            <!--/ Basic Bootstrap Table -->
+
+            <hr class="my-5" />
+
+
+            <div class="container">
+                <input class="form-control mb-4" id="tableSearch" type="text" placeholder="بحث..">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="table-success ">Number</th>
+                            <th class="table-success "> Name</th>
+
+                            <th class="table-success ">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        @foreach ($groups as $group)
+                            <tr>
+                                <td>{{ $group->id }}</td>
+                                <td>{{ $group->name }}</td>
+
+
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('groups.show', $group) }} detail"><i
+                                                    class="bx bx bxs-detail"></i> Show</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
+                    </tbody>
+                </table>
             </div>
-            <div class="col-12 col-md-6">
-                <a href="{{ route('categories.create') }}" class="btn btn-danger">هل تريد إنشاء نوع جديدة؟</a>
-            </div>
+
+            <div class="column is-12">{{ $groups->links() }}</div>
+
         </div>
-        <div class="row">
-            @foreach ($categories as $category)
-                <div class="col-md-6 col-xl-4">
-                    <div class="card bg-secondary text-white mb-3">
-                        <div class="card-header">{{ $category->category }}</div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                جمعيتنا , ❤️ جمعية انعاش الفقير الخيرية تحاول مساعدة المدرج
-                                ال{{ $category->category }}
-                            </p>
-                            <p class="demo-inline-spacing">
-                            <form method="post" action="{{ route('categories.destroy', $category) }}">
-                                @method('delete')
-                                @csrf
-
-                                <button type="submit" class="btn btn-primary me-1">حذف</button>
-
-                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary me-1">
-
-                                    تعديل
-
-                                </a>
-                                <a href="{{ route('categories.show', $category) }}" class="btn btn-primary me-1">
-
-                                    عرض
-
-                                </a>
-                            </form>
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
+    </div>
 </x-layouts.app>

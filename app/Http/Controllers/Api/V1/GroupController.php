@@ -124,3 +124,4 @@ class GroupController extends Controller
         return ['message'   =>     'the admin ' . auth()->user()->name . ' added a new  group successfuly'];
     }
 }
+ 

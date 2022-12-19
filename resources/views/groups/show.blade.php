@@ -12,24 +12,16 @@
             <div class="row">
                 <div class="col-14">
                     <div class="card mb-4">
-                        <h5 class="card-header">{{ $category->category }}</h5>
+                        <h5 class="card-header">{{ $group->name }}</h5>
                         <div class="card-body">
-                            <p class="card-text">
-                                جمعيتنا , ❤️ جمعية انعاش الفقير الخيرية تحاول مساعدة المدرج
-                                ال{{ $category->category }}
-                            </p>
+
                             <p class="demo-inline-spacing">
-                            <form method="post" action="{{ route('categories.destroy', $category) }}">
+                            <form method="post" action="{{ route('groups.destroy', $group) }}">
                                 @method('delete')
                                 @csrf
 
-                                <button type="submit" class="btn btn-primary me-1">حذف</button>
+                                <button type="submit" class="btn btn-primary me-1">delete</button>
 
-                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-primary me-1">
-
-                                    تعديل
-
-                                </a>
 
                             </form>
 
@@ -40,7 +32,7 @@
             </div>
         </div>
 
-        <div class="container-xxl flex-grow-1 container-p-y">
+        {{--  <div class="container-xxl flex-grow-1 container-p-y">
 
             <div class="container">
                 <input class="form-control mb-4" id="tableSearch" type="text" placeholder="بحث..">
@@ -86,5 +78,5 @@
                 </table>
             </div>
         </div>
-        </section>
+ --}} </section>
 </x-layouts.app>

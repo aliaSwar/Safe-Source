@@ -21,10 +21,13 @@
                 </div>
                 <div class="row mt-3">
                     <div class="d-grid gap-2 col-lg-6 mx-auto">
-                        <button class="btn btn-secondary btn-lg" type="submit">تم</button>
+                        <button class="btn btn-secondary btn-lg" type="submit">create</button>
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+
 
 
 </x-layouts.app>
